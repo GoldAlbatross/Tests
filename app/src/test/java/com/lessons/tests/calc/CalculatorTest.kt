@@ -1,21 +1,22 @@
 package com.lessons.tests.calc
 
-import org.junit.Assert.*
-
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import java.lang.ArithmeticException
 
 class CalculatorTest {
     private lateinit var calc: Calculator
 
-    @Before
+    @BeforeEach
     fun setUp() {
-        println("start test")
+        print("start: ")
         calc = Calculator()
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         println("--OK--\n")
     }
@@ -23,25 +24,49 @@ class CalculatorTest {
     @Test
     fun add() {
         println("add()")
-        assertEquals(9, calc.add(6,3))
+        val result = calc.add(6,3)
+        assertEquals(9, result)
     }
 
     @Test
     fun subtract() {
         println("subtract()")
-        assertEquals(3, calc.subtract(6,3))
+        val result = calc.subtract(6,3)
+        assertEquals(3, result)
     }
 
     @Test
     fun multiply() {
         println("multiply()")
-        assertEquals(18, calc.multiply(6,3))
+        val result = calc.multiply(6,3)
+        assertEquals(18, result)
+    }
+
+    @Test
+    fun saveDivide() {
+        println("saveDivide()")
+        assertEquals(2, calc.saveDivide(6,3))
+        assertEquals(0, calc.saveDivide(6,0))
+    }
+
+    @Test
+    fun evenOrOdd_evenNumber() {
+        println("evenOrOdd_evenNumber()")
+        val even = calc.evenOrOdd(10)
+        assertTrue(even)
+    }
+
+    @Test
+    fun evenOrOdd_oddNumber() {
+        println("evenOrOdd_oddNumber()")
+        val odd = calc.evenOrOdd(9)
+        assertFalse(odd)
     }
 
     @Test
     fun divide() {
         println("divide()")
-        assertEquals(2, calc.divide(6,3))
-        assertEquals(0, calc.divide(6,0))
+        assertThrows(ArithmeticException::class.java) { calc.divide(6, 0) }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.lessons.tests.utils
+package com.lessons.tests.convertors
 
 object ConvertUtils {
 
@@ -6,11 +6,17 @@ object ConvertUtils {
         var result = 0
 
         try {
-            result = s.toInt()
+            if (normalSize(s)) {
+                result = s.toInt()
+            }
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
         return result
+    }
+
+    fun normalSize (s: String): Boolean {
+        return s.length <= 10
     }
 
 }
